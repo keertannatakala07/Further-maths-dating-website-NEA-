@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=heart_plus" />
+</head>
+<body>
+
+    <div class="signUpPage">
+        <nav class="navBar">
+            <ul class="nav-links">
+                <span class="material-symbols-outlined">
+                    heart_plus
+                </span>
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item" id="signUpNav"><a href="signUp.html" class="nav-link">Sign Up</a></li>
+                <li class="nav-item" id="loginNav"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item" id="hubNav"><a href="hub.html" class="nav-link">View Account</a></li>
+                <li class="nav-item"><a href="aboutUs.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contactUs.html" class="nav-link">Contact Us</a></li>
+            </ul>
+
+            <div id="welcome" class="welcome"></div>
+        </nav>
+
+        <form id="signUpForm" class="details">
+            <label for="name">First name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter first name here" required>
+
+            <label for="name2">Last name:</label>
+            <input type="text" id="name2" name="name2" placeholder="Enter last name here" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter email here" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" placeholder="18" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter password here" required minlength="8" maxlength="265" autocomplete="current-password">
+
+            <label for="userName">Username:</label>
+            <input type="text" id="userName" name="userName" placeholder="JohnMerrick123" required>
+
+            <label for="dob">DOB: </label>
+            <input type="date" id="dob" name="dob" required>
+
+            <button type="submit" class="btnSubmit">Sign Up!</button>
+        </form>
+
+        <script type="module">
+            import { signUpUser } from '../appWrite.js'; 
+
+            const form = document.getElementById('signUpForm');
+
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();  
+
+                const formData = new FormData(form);
+                const email = formData.get('email').trim();
+                const password = formData.get('password').trim();
+                const userName = formData.get('userName').trim();
+                const name = formData.get('name').trim();
+                const name2 = formData.get('name2').trim();
+                const dob = formData.get('dob').trim();
+                const age = parseInt(formData.get('age'), 10);
+
+                const alpha = (str) => {
+                    return /^[a-z]/i.test(str) && /\d/.test(str) && /^[a-z0-9]+$/i.test(str);
+                };
+
+                if(!alpha(userName)){
+                    alert('Username entered must be alphanumberic, it must contain at least one letter and one number. Please try again.');
+                    return;
+                }
+
+                if(age < 16){
+                    alert('Age entered is too young for the dating website, the minimum age is 16 years old.');
+                    return;
+                }
+                else if(age > 18){
+                    alert('Age entered is too old for the dating website, maximum age is 18 years old.');
+                    return;
+                }
+
+                try {
+                    const { user, session } = await signUpUser(email, password, userName, name, dob, age, name2);
+                    localStorage.setItem('email', email)
+                    alert('You have now signed up, you will now be redirected and prompted to take our maths test to calculate your matching score.');
+                    window.location.href = 'testTerms.html';
+                } catch (error) {
+                    console.error(error);
+                    if(error.code === 409){
+                        alert('This email has already been used for another user, please try again with a different email');
+                    }
+                    else{
+                        alert('An error has occured, please try again');
+                    }
+                }
+            });
+        </script>
+    </div>
+
+    <footer class="rights">
+        <p>&copy; 2024 All rights reserved, 1+1</p>
+    </footer>
+
+    <script type="module">
+        import { checkSessionActive, databases, Query } from '../appWrite.js';  
+        async function updateNav() {
+            try {
+                const isActive = await checkSessionActive();  
+
+                const userSignedIn = localStorage.getItem('userSignedIn') === 'true'; 
+
+                if (userSignedIn || isActive) {  
+                    document.getElementById('hubNav').style.display = 'block';  
+                    document.getElementById('signUpNav').style.display = 'none';  
+                    document.getElementById('loginNav').style.display = 'none'; 
+
+                    const email = localStorage.getItem('email');
+                    const databaseID = '6769f13b0036227fc6c8';
+                    const collectionID = '6777cd390013b0742cb3';
+                    const response = await databases.listDocuments(databaseID, collectionID, [Query.equal('email', [email])]);
+                    const userDetails = response.documents[0];
+                    const welcome = `Welcome to the further maths dating website ${userDetails.name}!`
+                    document.getElementById('welcome').innerText = welcome;
+                    
+                } else {
+                    document.getElementById('hubNav').style.display = 'none';  
+                    document.getElementById('signUpNav').style.display = 'block'; 
+                    document.getElementById('loginNav').style.display = 'block';  
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        window.onload = updateNav;
+    </script>
+
+</body>
+</html>

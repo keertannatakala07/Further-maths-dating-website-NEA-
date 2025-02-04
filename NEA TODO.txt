@@ -1,0 +1,11 @@
+NEA TO DO:
+
+20) responsive webpage ( )
+30) pause button - documentation ( )
+46) DOB age validation ( )
+
+DATABASES:
+
+1) signup/login details (X)
+2) additional user details --> image, phone number (X)
+3) maths scores --> userId, mathsScore (X)

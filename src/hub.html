@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEA</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="hubPage">
+        <nav class="navBar">
+            <ul class="nav-links">
+                <span class="material-symbols-outlined">
+                    heart_plus
+                </span>
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item" id="signUpNav"><a href="signUp.html" class="nav-link">Sign Up</a></li>
+                <li class="nav-item" id="loginNav"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item" id="hubNav"><a href="hub.html" class="nav-link">View Account</a></li>
+                <li class="nav-item"><a href="aboutUs.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contactUs.html" class="nav-link">Contact Us</a></li>
+                <li class="nav-item" id="roomNav"><a href="room.html" class="nav-link">Room</a></li>
+            </ul>
+            <div id="welcome" class="welcome"></div>
+        </nav>
+
+        <button class="btnLogout" id="btnLogout">Logout</button>
+        <button class="btnEdit" id="btnEdit" title="Edit?"><span class="material-symbols-outlined">edit</span></button>
+        <button class="btnSave" id="btnSave" style="display: none">Save</button>
+        <button class="btnCancel" id="btnCancel" style="display: none;">Finish</button>
+        
+        <input type="file" id="picture" accept="image/*" style="display: none;">
+        <button id="btnUpload" class="btnUpload" style="display: none;">Select and upload your profile picture</button>
+        <img id="profilePicture" src="" alt="Profile Photo" style="max-width: 200px; display: none;">
+
+        <div id="userDetails" class="userDetails">
+            <div class="detailsContainer">
+                <p><b>First name: </b><span id="name"></span></p>
+            </div>
+
+            <div class="detailsContainer">
+                <p><b>Surname: </b><span id="name2"></span></p>
+            </div>
+
+            <div class="detailsContainer">
+                <p><b>Username: </b><span id="userName"></span></p>
+            </div>
+
+            <div class="detailsContainer">
+                <p><b>Email: </b><span id="email"></span></p>
+            </div>
+
+            <div class="detailsContainer">
+                <p><b>Age: </b><span id="age"></span></p>
+            </div>
+
+            <div class="detailsContainer">
+                <p><b>DOB: </b><span id="dob"></span></p>
+            </div>
+
+            <div class="detailsContainer">
+                <p><b>Phone number: </b><span id="phoneNumber"></span></p>
+            </div>
+            
+        </div>
+
+        <div class="dashboard" id="dashboard">
+            <h2 id="notificationText">Notifications:</h2>
+            <div id="notifications" class="notifications">
+                <p><b>Compatibility score: </b><span id="compatibilityScore"></span></p>
+            </div>
+        </div>
+
+
+    <script type="module">
+        import { logOut } from '../appWrite.js';  
+    
+        async function handleLogout() {
+            try {
+                await logOut();  
+                localStorage.setItem('userSignedIn', 'false');  
+                window.location.href = 'index.html';  
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        }
+        document.getElementById('btnLogout').addEventListener('click', handleLogout);
+    </script>
+    
+
+    <footer class="rights">
+        <p>&copy; 2024 All rights reserved, 1+1</p>
+    </footer>
+
+ 
+    <script type="module">
+        import { checkSessionActive, databases, Query, storage } from '../appWrite.js';  
+        async function updateNav() {
+            try {
+                const isActive = await checkSessionActive();  
+
+                const userSignedIn = localStorage.getItem('userSignedIn') === 'true'; 
+
+                if (userSignedIn || isActive) {  
+                    document.getElementById('hubNav').style.display = 'block';  
+                    document.getElementById('signUpNav').style.display = 'none';  
+                    document.getElementById('loginNav').style.display = 'none'; 
+                    document.getElementById('roomNav').style.display = 'block';
+
+                    const email = localStorage.getItem('email');
+                    const databaseID = '6769f13b0036227fc6c8';
+                    const collectionID = '6777cd390013b0742cb3';
+                    const response = await databases.listDocuments(databaseID, collectionID, [Query.equal('email', [email])]);
+                    const userDetails = response.documents[0];
+                    const welcome = `Welcome to the further maths dating website ${userDetails.name}!`
+                    document.getElementById('welcome').innerText = welcome;
+                    
+                } else {
+                    document.getElementById('hubNav').style.display = 'none';  
+                    document.getElementById('signUpNav').style.display = 'block'; 
+                    document.getElementById('loginNav').style.display = 'block';  
+                    document.getElementById('roomNav').style.display = 'none';
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function profile() {
+            const email = localStorage.getItem('email');
+            const databaseID = '6769f13b0036227fc6c8';
+            const collectionID = '6777cd390013b0742cb3';
+            const bucketID = '677aac46002525fd3fd3';
+            const response = await databases.listDocuments(databaseID, collectionID, [Query.equal('email', email)]);
+            const userDetails = response.documents[0];
+
+            if(userDetails.pictures){
+                const fileID = userDetails.pictures;
+                const profilePicture = document.getElementById('profilePicture');
+                profilePicture.src = storage.getFileView(bucketID, fileID);
+                profilePicture.style.display = 'block';
+            }
+            
+            document.getElementById('name').innerText = userDetails.name;
+            document.getElementById('name2').innerText = userDetails.name2;
+            document.getElementById('userName').innerText = userDetails.userName;
+            document.getElementById('email').innerText = userDetails.email;
+            document.getElementById('age').innerText = userDetails.age;
+            document.getElementById('phoneNumber').innerText = userDetails.phoneNumber;
+            document.getElementById('dob').innerText = new Date(userDetails.dob).toLocaleDateString();
+
+            const databaseID2 = '6769f13b0036227fc6c8';
+            const userCollectionID2 = '6769f14c002f23277202';
+            const response2 = await databases.listDocuments(databaseID2, userCollectionID2, [Query.equal('email', email)]);
+            const userDetails2 = response2.documents[0];
+            const ID = userDetails2.$id;
+            console.log(ID)
+
+            const userResultsID = '67995a07000c5e2f2758';
+            const response3 = await databases.listDocuments(databaseID2, userResultsID, [Query.equal('userId', ID)]);
+            const userDetails3 = response3.documents[0];
+            const compatibilityScore = userDetails3.mathsScore;
+            console.log(compatibilityScore)
+            
+
+            document.getElementById('compatibilityScore').innerText = compatibilityScore;
+
+        }
+
+        window.onload = async() => {
+            await updateNav();
+            await profile();
+        }
+    </script>
+
+    <script type="module">
+        import{storage, databases, Query, ID} from '../appWrite';
+
+        const bucketID = '677aac46002525fd3fd3';
+        const databaseID = '6769f13b0036227fc6c8';
+        const collectionID = '6777cd390013b0742cb3';
+
+        document.getElementById('btnUpload').addEventListener('click', async() => {
+            const userFile = document.getElementById('picture');
+            userFile.click();
+
+
+            userFile.onchange = async() => {
+                const file = userFile.files[0];
+                const profilePicture = document.getElementById('profilePicture');
+            
+                if (!file){
+                    alert('Please make sure you have a file selected to upload');
+                    return;
+                }
+                
+                const fileResponse = await storage.createFile(bucketID, ID.unique(), file);
+                const fileID = fileResponse.$id;
+                const fileURL = storage.getFileView(bucketID, fileID);
+                
+                const email = localStorage.getItem('email');
+                const response = await databases.listDocuments(databaseID, collectionID, [Query.equal('email', email)]);
+                const user = response.documents[0];
+                const oldId = user.pictures;
+
+                const reader = new FileReader();
+                reader.onload = function(event){
+                    profilePicture.src = event.target.result;
+                    profilePicture.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+
+                if(oldId){
+                    await storage.deleteFile(bucketID, oldId);
+                }
+
+                await databases.updateDocument(databaseID, collectionID, user.$id, {pictures: fileID});
+
+                profilePicture.src = fileURL;
+                profilePicture.style.display = 'block';
+            }
+        })
+    </script>
+
+    <script type="module">
+        import{databases, Query, storage, account} from "../appWrite.js"
+
+        import{profile} from "/profile.js"
+
+        document.getElementById('btnEdit').addEventListener('click', edit);
+        document.getElementById('btnSave').addEventListener('click', save);
+        document.getElementById('btnCancel').addEventListener('click', cancel);
+
+        let ogValues = {};
+        
+        async function edit(){
+
+            const name = document.getElementById('name');
+            const name2 = document.getElementById('name2');
+            const userName = document.getElementById('userName');
+            const email = document.getElementById('email');
+            const age = document.getElementById('age');
+            const dob = document.getElementById('dob');
+            const phoneNumber = document.getElementById('phoneNumber');
+            
+            let dobVal = dob.innerText.trim();
+            let nDob = "";
+
+            if (dobVal && !isNaN(new Date(dobVal).getTime())) {
+                nDob = new Date(dobVal).toISOString().split('T')[0];
+            }
+
+            ogValues = {
+                name: name.innerText,
+                name2: name2.innerText,
+                userName: userName.innerText,
+                email: email.innerText,
+                age: age.innerText,
+                dob: dob.innerText,
+                phoneNumber: phoneNumber.innerText
+            }
+
+            name.innerHTML = `<input type="text" id="editName" value="${name.innerText}">`;
+            name2.innerHTML = `<input type="text" id="editName2" value="${name2.innerText}">`;
+            userName.innerHTML = `<input type="text" id="editUserName" value="${userName.innerText}">`;
+            email.innerHTML = `<input type="email" id="editEmail" value="${email.innerText}">`;
+            age.innerHTML = `<input type="number" id="editAge" value="${age.innerText}" min="16" max="18">`;
+            dob.innerHTML = `<input type="date" id="editDob" value="${nDob}">`;
+            phoneNumber.innerHTML = `<input type="tel" id="editPhoneNumber" value="${phoneNumber.innerText}">`;
+
+            document.getElementById('btnEdit').style.display = 'none';
+            document.getElementById('btnSave').style.display = 'block';
+            document.getElementById('btnCancel').style.display = 'block';
+            document.getElementById('btnUpload').style.display = 'block';
+            document.getElementById('btnLogout').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        async function save(){
+            const uName = document.getElementById('editName').value;
+            const uName2 = document.getElementById('editName2').value;
+            const uUserName = document.getElementById('editUserName').value;
+            const uEmail = document.getElementById('editEmail').value;
+            const uPhoneNumber = document.getElementById('editPhoneNumber').value;
+            const uAge = parseInt(document.getElementById('editAge').value, 10);
+            const uDob = document.getElementById('editDob').value.trim();
+
+            if (!uDob || isNaN(new Date(uDob).getTime())) {
+                console.error("Invalid date value:", uDob);
+                alert("Invalid Date of Birth. Please enter a valid date.");
+                return;
+            }
+
+            const nDob = new Date(uDob).toISOString().split("T")[0];
+            console.log("Valid DOB:", nDob);
+            
+            const email = localStorage.getItem('email');
+            
+            const databaseID = '6769f13b0036227fc6c8';
+            const collectionID = '6777cd390013b0742cb3';
+            const bucketID = '677aac46002525fd3fd3';
+
+            const response = await databases.listDocuments(databaseID, collectionID, [Query.equal('email', email)]);
+            const userDetails = response.documents[0];
+
+            const password = prompt("Enter current password to confirm account detail changes");
+            
+            if(!password){
+                alert("Error, no password entered");
+                return;
+            }
+            
+            if(email != uEmail){
+                try {
+                    await account.updateEmail(uEmail, password);
+                } catch(error){
+                    if(error.code === 409){
+                        alert("This email is already being used, please use another.");
+                    }
+                    else{
+                        return;
+                    }
+                }
+            }
+
+                       
+
+            await databases.updateDocument(databaseID, collectionID, userDetails.$id, {
+                name: uName,
+                name2: uName2,
+                userName: uUserName,
+                email: uEmail,
+                age: uAge,
+                dob: nDob,
+                phoneNumber: uPhoneNumber
+            });
+
+            const userCollectionID = '6769f14c002f23277202';
+            const response2 =  await databases.listDocuments(databaseID, userCollectionID, [Query.equal('email', email)]);
+            const userDetails2 = response2.documents[0];
+
+            await databases.updateDocument(databaseID, userCollectionID, userDetails2.$id, {
+                name: uName,
+                userName: uUserName,
+                email: uEmail,
+                age: uAge,
+                dob: nDob
+            })
+
+            localStorage.setItem('email', uEmail);
+
+            await profile();
+
+            document.getElementById('btnEdit').style.display = 'block';
+            document.getElementById('btnSave').style.display = 'none';
+            document.getElementById('btnCancel').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            
+            window.location.href='hub.html'
+        }
+
+        async function cancel(){
+            const name = document.getElementById('name');
+            const userName = document.getElementById('userName');
+            const email = document.getElementById('email');
+            const age = document.getElementById('age');
+            const dob = document.getElementById('dob');
+
+            name.innerHTML = ogValues.name;
+            userName.innerHTML = ogValues.userName;
+            email.innerHTML = ogValues.email;
+            age.innerHTML = ogValues.age;
+            dob.innerHTML = ogValues.dob;
+
+            document.getElementById('btnEdit').style.display = 'block';
+            document.getElementById('btnSave').style.display = 'none';
+            document.getElementById('btnCancel').style.display = 'none';
+            document.getElementById('btnUpload').style.display = 'none';
+            document.getElementById('btnLogout').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'block';
+            
+            window.location.href='hub.html'
+        }
+
+    </script>
+
+</body>
+</html>

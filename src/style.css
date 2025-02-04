@@ -1,0 +1,1431 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.btnQuick {
+  background-color: #50A7BD; 
+  color: white; 
+  padding: 7px 20px; 
+  border: none; 
+  border-radius: 20px; 
+  font-size: 16px;
+  font-family: "Tsukimi Rounded", serif;
+  font-weight: 400;
+  font-style: normal; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  position: fixed;
+  left: 50%;
+  bottom: 50%;
+  width: 11.5%;
+}
+
+.btnQuick:hover {
+  background-color: #1876AF; 
+}
+
+.btnQuick:active {
+  background-color: #003f7f; 
+}
+
+/* Pages */
+.homePage {
+    background-image: url('images/homePage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+.loginPage {
+    background-image: url('images/loginPage.png');
+    background-size: 100% 95%;
+    background-position: 100% 94%;
+    width: 100%;
+    height: 100%;
+}
+
+.signUpPage {
+    background-image: url('images/signUpPage.png');
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: -6%;
+}
+
+.aboutUsPage {
+    background-image: url('images/aboutUsPage.png');
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.questionPage {
+    background-image: url('images/questionPage.png');
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.hubPage {
+    background-image: url('images/accountPage.png');
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.contactUsPage {
+    background-image: url('images/contactUsPage.png');
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.testTerms {
+    background-image: url('images/termsTestPage.png');
+    background-size: 100% 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.roomPage {
+    background-image: url('images/roomPage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.tiles {
+    position: relative;
+    width: 100%;
+    height: auto; 
+}
+
+.tile {
+    position: relative;
+    background-color: #a9dca7;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px; 
+    width: 20%; 
+    height: auto; 
+    margin: 1%; 
+    display: inline-block; 
+  }
+
+  .btnSignUp {
+    background-color: #50A7BD; 
+    color: white; 
+    padding: 7px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 38.5%; 
+    bottom: 43%; 
+    width: 11.5%;
+  }
+  
+  .btnSignUp:hover {
+    background-color: #1876AF; 
+  }
+  
+  .btnSignUp:active {
+    background-color: #003f7f; 
+    transform: scale(0.98); 
+  }
+
+
+  .btnLogin {
+    background-color: #D38291; 
+    color: white; 
+    padding: 7px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 50.5%; 
+    bottom: 43%; 
+    width: 11.5%;
+}
+  
+  .btnLogin:hover {
+    background-color: #BB4D66; 
+  }
+  
+  .btnLogin:active {
+    background-color: #800d28; 
+    transform: scale(0.98); 
+  }
+
+  .btnViewAccount {
+    background-color: #D38291; 
+    color: white; 
+    padding: 7px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 17px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 38%; 
+    bottom: 42.5%; 
+    width: 24%;
+    height: 5%;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+  .btnViewAccount:hover {
+    background-color: #BB4D66; 
+  }
+  
+  .btnViewAccount:active {
+    background-color: #800d28; 
+    transform: scale(0.98); 
+  }
+
+  .material-symbols-outlined{
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 10px;
+
+  }
+
+
+  .container {
+    position: relative;
+    width: 200px; 
+    height: 200px;
+    margin: 100px auto;
+  }
+
+  .heart2 {
+      width: 24px;
+      height: 24px;
+      background: #ff1414;
+      clip-path: path("M12 4c-2.826-5.200-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27z");
+
+      position: absolute;
+      top: 150px;
+      left: 315px;
+      transform: translate(-50%, -50%) translateX(50px);
+      animation: spin 5s infinite linear;
+  }
+
+  .container2 {
+    position: relative;
+    width: 200px; 
+    height: 200px;
+  }
+
+  .heart3 {
+    width: 24px;
+    height: 24px;
+    background: #ff1414;
+    clip-path: path("M12 4c-2.826-5.200-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27z");
+
+    position: relative;
+    top: 140px;
+    margin-left: 440px;
+    transform: translate(-50%, -50%) translateX(50px);
+    animation: spin2 5s infinite linear;
+  }
+
+  
+  @keyframes spin {
+      0% {
+          transform: rotate(0deg) translateY(60px) rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg) translateY(60px) rotate(-360deg);
+      }
+  }
+
+  @keyframes spin2 {
+    0% {
+        transform: rotate(0deg) translateX(60px) rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg) translateX(60px) rotate(360deg);
+    }
+}
+
+
+
+
+/* Footer Styles */
+.rights {
+    text-align: center;
+    padding: 7px;
+    background-color: #c78d8dbb;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.rights p {
+    margin: 0;
+    font-size: 13px;
+}
+
+
+/*Nav bar*/
+
+.navBar {
+    background-color: #c7b5c7;
+    border: 2px solid #7e8099;
+    display: flex;
+    justify-content: left;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0%;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+}
+
+
+.nav-link {
+    display: block;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #3711e238;
+}
+
+/*Sign up page*/
+
+.details{
+    background-color: #d2dbdf; 
+    padding: 20px; 
+    width: 17.83%;
+    height: 62%;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    position: fixed;
+    left: 38.65%;
+    bottom: 3%;
+    border-radius: 20px;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+
+}
+
+.details label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.details input{
+    width: 90%;
+    height: 2%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+}
+
+
+.btnSubmit{
+    background-color: #888888; 
+    color: white; 
+    padding: 7px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 14px;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 18%;
+    position: fixed;
+    bottom: 6.5%;
+    left: 40%;
+
+}
+
+.btnSubmit:hover {
+    background-color: #5c5b5b; 
+  }
+  
+.btnSubmit:active {
+    background-color: #3d3d3d; 
+    transform: scale(0.98); 
+  }
+
+.btnLogout{
+    background-color: #a293c9; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    font-family: Arial, sans-serif; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 15%;
+    position: fixed;
+    bottom: 5%;
+    left: 20%;
+}
+
+.btnLogout:hover {
+    background-color: #491ec0; 
+  }
+  
+.btnLogout:active {
+    background-color: #150061; 
+    transform: scale(0.98); 
+  }
+
+  /*login page*/
+
+.detailsUserName label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.detailsUserName input{
+    width: 23%;
+    height: 6.5%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    position: fixed;
+    left: 38.5%;
+    bottom: 47%;
+}
+
+.detailsPassWord label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.detailsPassWord input{
+    width: 23%;
+    height: 6.5%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    position: fixed;
+    left: 38.5%;
+    bottom: 34%;
+}
+
+.btnDetailsLogin {
+    background-color: #1a508f; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 24%;
+    position: fixed;
+    left: 39%;
+    bottom: 21%;
+    height: 7%;
+}
+
+.btnDetailsLogin:hover {
+    background-color: #1e3e63; 
+  }
+
+  
+.btnDetailsLogin:active {
+    background-color: #051e3d; 
+    transform: scale(0.98); 
+  }
+
+  /* Question Page */
+
+  #game{
+    border: 5px solid #000000;
+  }
+
+  .tiles {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tile2, .tile3, .tile5, .tile7, .tile9 {
+    position: absolute;
+    background-color: #a9dca7;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px; 
+    width: 7%;
+    height: 7%; 
+    left: 35.2%;
+    bottom: 83.5%;
+    border: #b1d1ca 2px solid;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+  }
+
+  .tile4, .tile6, .tile8, .tile10, .tile1 {
+    position: absolute;
+    background-color: #a9dca7;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px; 
+    width: 7%;
+    height: 7%; 
+    left: 35.2%;
+    bottom: 83.5%;
+    border: #b1d1ca 2px solid;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+  }
+
+  .tile1{
+    bottom: 83%;;
+  }
+
+  .tile2{
+    left: 23.6%;
+    top: 33.6%;
+  }
+
+  .tile3{
+    top: 33.6%;
+    left: 46%;
+  }
+
+  .tile4{
+    top: 47.6%;
+    left: 56.3%;
+  }
+
+  .tile5{
+    top: 62.6%;
+    left: 23.6%;
+  }
+  
+  .tile6{
+    top: 62.6%;
+    left: 46%;
+  }
+
+  .tile7{
+    top: 62.6%;
+    left: 56.8%;
+  }
+
+  .tile8{
+    top: 76%;
+    left: 23.6%;
+  }
+
+  .tile9{
+    top: 76%;
+  }
+
+  .tile10{
+    top: 76%;
+    left: 56.8%;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+  }
+
+  .tile1:hover, .tile2:hover, .tile3:hover, .tile4:hover, .tile5:hover, 
+  .tile6:hover, .tile7:hover, .tile8:hover, .tile9:hover, .tile10:hover {
+      animation: bounce 0.7s;
+      box-shadow: 0 6px 8px rgb(0, 0, 0);
+  }
+
+  .fullScreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.);
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+  }
+
+  .fullScreenQuestions {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    height: 70%;
+    width: 80%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+  }
+
+  #answer {
+    width: 91%;
+    padding: 10px;
+    margin: 35px 0;
+    margin-left: 40px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
+
+  #answer2 {
+    width: 1%;
+    padding: 10px;
+    margin: 35px 0;
+    margin-left: 40px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    position: fixed;
+    left: 51%;
+  }
+
+  #submitAnswer, #x {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  #x {
+    background-color: #c52929; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  #x:hover {
+    background-color: #8f1f1f; 
+  }
+
+  #x:active {
+    background-color: rgb(87, 18, 18); 
+    transform: scale(0.98); 
+  }
+
+  #submitAnswer {
+    background: #28a746b9;
+    color: white;
+    margin-right: 10px;
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 12%;
+    width: 37%;
+    top: 75%;
+  }
+
+
+  #submitAnswer:hover {
+    background-color: #28a745; 
+  }
+
+  #submitAnswer:active {
+    background: #218838;
+    transform: scale(0.98);
+  }
+
+  #x::after {
+    width: 100%;
+  }
+
+
+  #timerContainer{
+    position: relative;
+    text-align: center;
+  }
+  
+  #timer{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    position: fixed;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: white;
+  }
+
+  #top{
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    top: 49%;
+    left: 49%;
+    text-align: center;
+    border: black solid 3px;
+    border-radius: 5px;
+  }
+
+  #bottom{
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    top: 59%;
+    left: 49%;
+    text-align: center;
+    border: black solid 3px;
+    border-radius: 5px;
+  }
+
+  #line{
+    font-size: 60px;
+    position: fixed;
+    top: 51%;
+    left: 49%;
+  }
+
+  #top2{
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    top: 51%;
+    left: 49%;
+    text-align: center;
+    border: black solid 3px;
+    border-radius: 5px;
+  }
+
+  #bottom2{
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    top: 61%;
+    left: 49%;
+    text-align: center;
+    border: black solid 3px;
+    border-radius: 5px;
+  }
+
+  #line2{
+    font-size: 60px;
+    position: fixed;
+    top: 53%;
+    left: 49%;
+  }
+
+  #btnSquare, #btnPower, #btnPi, #btnSquare2, #btnRoot{
+    background: #171817b9;
+    color: white;
+    margin-right: 10px;
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    width: 50px;
+    height: 40px;
+    left: 50.5%;
+    bottom: 20%;
+  }
+
+  #btnSquare:hover, #btnPower:hover, #btnPi:hover, #btnSquare2:hover, #btnRoot:hover {
+    background-color: #292b29; 
+  }
+
+  #btnSquare:active, #btnPower:active, #btnPi:active, #btnSquare2:active, #btnRoot:active {
+    background: rgb(0, 0, 0)b9;
+    transform: scale(0.98);
+  }
+
+  .base-timer {
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    width: 150px;
+    height: 150px;
+    background-color: rgb(181, 218, 192);
+    border-radius: 50%;
+  }
+  
+  .base-timer__svg {
+    transform: scaleX(-1);
+  }
+  
+  .base-timer__circle {
+    fill: none;
+    stroke: none;
+  }
+  
+  .base-timer__path-elapsed {
+    stroke-width: 7px;
+    stroke: grey;
+  }
+  
+  .base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;
+  }
+  
+  .base-timer__path-remaining.green {
+    color: rgb(65, 184, 131);
+  }
+  
+  .base-timer__path-remaining.orange {
+    color: orange;
+  }
+  
+  .base-timer__path-remaining.red {
+    color: red;
+  }
+  
+  .base-timer__label {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+
+  .btnPause {
+    background-color: #50A7BD; 
+    color: white; 
+    padding: 7px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 0%; 
+    top: 20%; 
+    width: 11.5%;
+  }
+  
+  .btnPause:hover {
+    background-color: #1876AF; 
+  }
+  
+  .btnPause:active {
+    background-color: #003f7f; 
+    transform: scale(0.98); 
+  }
+
+
+  /* Hub page */
+  .btnLogout {
+    background-color: #D38291; 
+    color: white; 
+    padding: 7px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 30%; 
+    bottom: 8.5%; 
+    width: 36%;
+    height: 5%;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+  
+  .btnLogout:hover {
+    background-color: #BB4D66; 
+  }
+  
+  .btnLogout:active {
+    background-color: #800d28; 
+    transform: scale(0.98); 
+  }
+
+
+  .userDetails{
+    position: fixed;
+    left: 31%;
+    top: 41%; 
+  }
+
+  .userDetails p {
+    font-size: 16px;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 1px;
+  }
+
+  .btnUpload {
+    background-color: #D38291; 
+    color: white; 
+    padding: 7px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 48%; 
+    bottom: 70%;
+    width: 20%;
+    height: 8%;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+  }
+  
+  .btnUpload:hover {
+    background-color: #BB4D66; 
+  }
+  
+  .btnUpload:active {
+    background-color: #800d28; 
+    transform: scale(0.98); 
+  }
+
+  .welcome{
+    position: absolute;
+    top: 35%;
+    right: 3%;
+    font-size: 18px;
+  }
+
+  #picture {
+    display: block;   
+    margin-top: 100px;
+    padding: 10px;
+  }
+
+
+  #profilePicture{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #71a6bd ;
+    margin-left: 433px;
+    margin-top: 96px;
+  }
+
+  .detailsContainer{
+    margin: 8px 0;
+    padding: 10px;
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid black;
+    height: 20px;
+    width: 493px;
+  }
+
+  .btnEdit {
+    background-color: #D38291; 
+    color: white; 
+    padding: 20px 15px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 66.5%; 
+    bottom: 8.5%; 
+    width: 4%;
+    height: 5%;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+  
+  .btnEdit:hover {
+    background-color: #BB4D66; 
+  }
+  
+  .btnEdit:active {
+    background-color: #800d28; 
+    transform: scale(0.98); 
+  }
+
+  #btnEdit .material-symbols-outlined{
+    margin-bottom: 15px;
+  }
+
+  .btnSave {
+    background-color: #528b5e; 
+    color: white; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 30.5%; 
+    bottom: 8.5%; 
+    width: 30%;
+    height: 5%;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+  
+  .btnSave:hover {
+    background-color: #426e4c; 
+  }
+  
+  .btnSave:active {
+    background-color: rgb(53, 88, 61); 
+    transform: scale(0.98); 
+  }
+
+  .btnCancel{
+    background-color: #ca2d2d; 
+    color: white; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    cursor: pointer; 
+    
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    left: 61%; 
+    bottom: 8.5%; 
+    width: 9%;
+    height: 5%;
+
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .btnCancel:hover {
+    background-color: #8f2222; 
+  }
+  
+  .btnCancel:active {
+    background-color: rgb(124, 26, 26); 
+    transform: scale(0.98); 
+  }
+
+  .dashboard{
+    position: fixed;
+    margin-left: 650px;
+    background-color: white;
+    width: 280px;
+    height: 200px;
+    border-radius: 20px;
+    padding-left: 10px;
+    top: 100px;
+    
+  }
+
+  #notificationText{
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 600;
+    font-style: normal;
+    position: fixed;
+    top: 90px;
+    left: 720px;
+
+  }
+
+  #notificationsText2{
+    position: fixed;
+    top: 140px;
+    font-weight: 600;
+    font-style: normal;
+    position: fixed;
+    font-size: 14px;
+    font-family: "Tsukimi Rounded", serif;
+  }
+
+  .notifications{
+    position: fixed;
+    top: 135px;
+    font-weight: 600;
+    font-style: normal;
+    position: fixed;
+    font-size: 16px;
+    font-family: "Tsukimi Rounded", serif;
+  }
+
+
+  /* Contact us page */
+  
+  .contactUsDetails{
+    background-color: hsl(183, 42%, 90%); 
+    border: 1px solid #1792ca00; 
+    padding: 20px; 
+    width: 34.4%;
+    height: 41%;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    position: fixed;
+    left: 31.4%;
+    bottom: 15.3%;
+    border-radius: 10px 10px 40px 40px;
+    background-color: #a2e8fb;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.contactUsDetails label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contactUsDetails input{
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.btnQuestion {
+    background-color: #3842998e; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    font-size: 16px;
+    font-family: Arial, sans-serif; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 20%;
+    position: fixed;
+    bottom: 19%;
+    left: 40%;
+
+}
+
+.btnQuestion:hover {
+    background-color: #384299; 
+  }
+  
+.btnQuestion:active {
+    background-color: #150061; 
+    transform: scale(0.98); 
+  }
+
+  
+
+#query {
+  width: 466px;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  resize: none; 
+  overflow-y: hidden; 
+  min-height: 200px; 
+  line-height: 1.5; 
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+
+#emailContact{
+    width: 450px;
+    border-radius: 10px;
+    line-height: 1.5; 
+    font-size: 16px;
+}
+
+.heart {
+  background-color: #e7b9b6;
+  display: inline-block;
+  height: 30px;
+  margin: 0 10px;
+  position: fixed;
+  left: 32%;
+  bottom: 55%;
+  transform: rotate(-45deg);
+  width: 30px;
+  animation: spin 2s infinite linear, jump 2s infinite ease-in-out;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  background-color: #e7b9b6;
+  border-radius: 50%;
+  height: 30px;
+  position: absolute;
+  width: 30px;
+}
+
+.heart::before {
+  top: -15px;
+  left: 0;
+}
+
+.heart::after {
+  left: 15px;
+  top: 0;
+}
+
+@keyframes jump {
+  0%, 100% {
+    transform: translateY(0) rotate(-45deg);
+  }
+  50% {
+    transform: translateY(-100px) rotate(-45deg);
+  }
+}
+
+/* Test Terms */
+
+.testTerms ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 200px 0 0;
+  font-family: "Tsukimi Rounded", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.testTerms li {
+  font-size: 16px;
+  color: #000000;
+  margin: 10px 0;
+  padding-left: 2%;
+  position: relative;
+  margin-left: 35%;
+  font-weight: bold;
+  width: 30%;
+  font-family: "Tsukimi Rounded", serif;
+  font-weight: 400;
+  font-style: normal;
+
+}
+
+.testTerms li::before {
+  content: "➥";
+  position: absolute;
+  left: 0;
+  color: #000000;
+  font-weight: bold;
+}
+
+.btnAgree {
+  background-color: #515b9196; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 20px; 
+  font-size: 16px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 30%;
+  position: fixed;
+  bottom: 15%;
+  left: 35%;
+  font-family: "Tsukimi Rounded", serif;
+  font-weight: 400;
+  font-style: normal;
+
+}
+
+.btnAgree:hover {
+  background-color: #515b91; 
+}
+
+.btnAgree:active {
+  background-color: #363c5f; 
+  transform: scale(0.98); 
+}
+
+/* roomPage */
+
+.userDetails2{
+  position: fixed;
+  left: 29%;
+  top: 48%; 
+}
+
+.userDetails2 p {
+  font-size: 16px;
+  font-family: "Tsukimi Rounded", serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 1px;
+}
+
+.detailsContainer2{
+  margin: 8px 0;
+  padding: 10px;
+  background-color: rgb(184, 189, 179);
+  border-radius: 30px;
+  height: 17px;
+  width: 555px;
+}
+
+#profilePicture2{
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #71a6bd ;
+  margin-left: 44%;
+  margin-top: 15.5%;
+}
+
+#match {
+  background-color: #50A7BD; 
+  color: white; 
+  padding: 7px 20px; 
+  border: none; 
+  border-radius: 20px; 
+  font-size: 16px;
+  font-family: "Tsukimi Rounded", serif;
+  font-weight: 400;
+  font-style: normal; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  position: fixed;
+  left: 61%;
+  bottom: 69%;
+  width: 11.5%;
+}
+
+#match:hover {
+  background-color: #1876AF; 
+}
+
+#match:active {
+  background-color: #003f7f; 
+}

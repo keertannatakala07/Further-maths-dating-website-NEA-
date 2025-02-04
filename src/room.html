@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEA</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=heart_plus" />
+
+</head>
+
+<body>
+
+    <div class="roomPage">
+        <nav class="navBar">
+            <ul class="nav-links">
+                <span class="material-symbols-outlined">
+                    heart_plus
+                </span>
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item" id="signUpNav"><a href="signUp.html" class="nav-link">Sign Up</a></li>
+                <li class="nav-item" id="loginNav"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item" id="hubNav"><a href="hub.html" class="nav-link">View Account</a></li>
+                <li class="nav-item"><a href="aboutUs.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contactUs.html" class="nav-link">Contact Us</a></li>
+                <li class="nav-item" id="roomNav"><a href="room.html" class="nav-link">Room</a></li>
+            </ul>
+            <div id="welcome" class="welcome"></div>
+        </nav>
+
+        <img id="profilePicture2" style="max-width: 200px; display: none;">
+
+        <div id="userDetails2" class="userDetails2">
+            <div class="detailsContainer2">
+                <p><b>First name: </b><span id="fName"></span></p>
+            </div>
+
+            <div class="detailsContainer2">
+                <p><b>Surname: </b><span id="lName"></span></p>
+            </div>
+
+            <div class="detailsContainer2">
+                <p><b>Email: </b><span id="email2"></span></p>
+            </div>
+
+            <div class="detailsContainer2">
+                <p><b>Age: </b><span id="age2"></span></p>
+            </div>
+
+            <div class="detailsContainer2">
+                <p><b>Phone number: </b><span id="phoneNumber2"></span></p>
+            </div>
+        </div>
+
+        <button id="match">Next match</button>
+
+    </div>
+
+    <script type="module">
+        import { client, account, databases, ID, Query, storage } from '../appWrite';
+        const databaseID = '6769f13b0036227fc6c8';
+        const userResultsCollectionID = '67995a07000c5e2f2758';
+        const email = localStorage.getItem('email');
+        const userCollectionID = '6769f14c002f23277202';
+
+        const response = await databases.listDocuments(databaseID, userCollectionID, [Query.equal('email', email)]);
+        const userDetails = response.documents[0];
+        const userID = userDetails.$id;
+
+        const scoreResponse = await databases.listDocuments(databaseID, userResultsCollectionID, [Query.equal('userId', userID)]);
+        const userScoreDetails = scoreResponse.documents[0];
+        const userScore = userScoreDetails.mathsScore;
+
+        const allResponse = await databases.listDocuments(databaseID, userResultsCollectionID);
+        const wholeUsers = allResponse.documents;
+
+        const match = wholeUsers
+            .filter(user => user.mathsScore === userScore + 1 || user.mathsScore === userScore - 1)
+            .map(user => user.userId);
+
+        let matchedUsersData = [];
+
+        for (const matchID of match) {
+            const matchIDString = (matchID && matchID.$id) ? matchID.$id : String(matchID);
+            const queryResponse = await databases.listDocuments(databaseID, userCollectionID, [Query.equal('$id', matchIDString)]);
+            const matchedUser = queryResponse.documents[0];
+            matchedUsersData.push({ userId: matchID, email: matchedUser.email });
+        }
+
+        let index = 0;
+
+
+        async function nextMatch(index){
+            const databaseID = '6769f13b0036227fc6c8';
+            const userProfileID = '6777cd390013b0742cb3';
+
+            const current = matchedUsersData[index];
+            const response = await databases.listDocuments(databaseID, '6777cd390013b0742cb3', [Query.equal('email', current.email)]);
+            const userProfile = response.documents[0];
+
+            userDisplay(userProfile);
+        }
+
+        function userDisplay(user){
+            document.getElementById('fName').textContent = user.name;
+            document.getElementById('lName').textContent = user.name2;
+            document.getElementById('email2').textContent = user.email;
+            document.getElementById('age2').textContent = user.age;
+            document.getElementById('phoneNumber2').textContent = user.phoneNumber || 'N/A';
+            
+            const collectionID = '6777cd390013b0742cb3';
+            const bucketID = '677aac46002525fd3fd3';
+
+            if(user.pictures){
+                const fileID = user.pictures;
+                const profilePicture = document.getElementById('profilePicture2');
+                profilePicture.src = storage.getFileView(bucketID, fileID);
+                profilePicture.style.display = 'block';
+            }
+        }
+
+        if (matchedUsersData.length > 0) {
+            nextMatch(index);
+        }
+
+        document.getElementById('match').addEventListener('click', () => {
+            if (index < matchedUsersData.length - 1) {
+                index++;
+            }else{
+                index=0;
+            }
+            nextMatch(index);
+        });
+
+    </script>
+
+    <script type="module">
+        import { checkSessionActive, databases, Query } from '../appWrite.js';  
+        async function updateNav() {
+            try {
+                const isActive = await checkSessionActive();  
+
+                const userSignedIn = localStorage.getItem('userSignedIn') === 'true'; 
+
+                if (userSignedIn || isActive) {  
+                    document.getElementById('hubNav').style.display = 'block';  
+                    document.getElementById('signUpNav').style.display = 'none';  
+                    document.getElementById('loginNav').style.display = 'none'; 
+                    document.getElementById('roomNav').style.display = 'block';
+                    const email = localStorage.getItem('email');
+                    const databaseID = '6769f13b0036227fc6c8';
+                    const collectionID = '6777cd390013b0742cb3';
+                    const response = await databases.listDocuments(databaseID, collectionID, [Query.equal('email', [email])]);
+                    const userDetails = response.documents[0];
+                    const welcome = `Welcome to the further maths dating website ${userDetails.name}!`
+                    document.getElementById('welcome').innerText = welcome;
+                    
+                } else {
+                    document.getElementById('hubNav').style.display = 'none';  
+                    document.getElementById('signUpNav').style.display = 'block'; 
+                    document.getElementById('loginNav').style.display = 'block';  
+                    document.getElementById('roomNav').style.display = 'none';
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        window.onload = updateNav;
+    </script>
+    
+</body>
+</html>

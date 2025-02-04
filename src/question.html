@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="questionPage">
+
+        <div class="tiles">
+            <div class="tile1" data-question="1">Question 1:</div>
+            <div class="tile2" data-question="2">Question 2:</div>
+            <div class="tile3" data-question="3">Question 3:</div>
+            <div class="tile4" data-question="4">Question 4:</div>
+            <div class="tile5" data-question="5">Question 5:</div>
+            <div class="tile6" data-question="6">Question 6:</div>
+            <div class="tile7" data-question="7">Question 7:</div>
+            <div class="tile8" data-question="8">Question 8:</div>
+            <div class="tile9" data-question="9">Question 9:</div>
+            <div class="tile10" data-question="10">Question 10:</div>
+        </div> 
+
+        <button id="btnPause" class="btnPause">Pause test</div>
+
+        <div id="app"></div>
+
+        <script>
+            const FULL_DASH_ARRAY = 283;
+            const WARNING_THRESHOLD = 10;
+            const ALERT_THRESHOLD = 5;
+
+            const COLOR_CODES = {
+            info: {
+                color: "green"
+            },
+            warning: {
+                color: "orange",
+                threshold: WARNING_THRESHOLD
+            },
+            alert: {
+                color: "red",
+                threshold: ALERT_THRESHOLD
+            }
+            };
+
+            const TIME_LIMIT = 2400;
+            let timePassed = 0;
+            let timeLeft = TIME_LIMIT;
+            let timerInterval = null;
+            let remainingPathColor = COLOR_CODES.info.color;
+            let paused = false;
+
+            document.getElementById("app").innerHTML = `
+            <div class="base-timer">
+            <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="base-timer__circle">
+                <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+                <path
+                    id="base-timer-path-remaining"
+                    stroke-dasharray="283"
+                    class="base-timer__path-remaining ${remainingPathColor}"
+                    d="
+                    M 50, 50
+                    m -45, 0
+                    a 45,45 0 1,0 90,0
+                    a 45,45 0 1,0 -90,0
+                    "
+                ></path>
+                </g>
+            </svg>
+            <span id="base-timer-label" class="base-timer__label">${formatTime(
+                timeLeft
+            )}</span>
+            </div>
+            `;
+
+            startTimer();
+
+            function onTimesUp() {
+            clearInterval(timerInterval);
+            }
+
+            document.getElementById("btnPause").addEventListener("click", pause);
+
+            function startTimer() {
+            timerInterval = setInterval(() => {
+                timePassed = timePassed += 1;
+                timeLeft = TIME_LIMIT - timePassed;
+                document.getElementById("base-timer-label").innerHTML = formatTime(
+                timeLeft
+                );
+                setCircleDasharray();
+                setRemainingPathColor(timeLeft);
+
+                if (timeLeft === 0) {
+                onTimesUp();
+                clearInterval(timerInterval);
+                window.location.href = "hub.html";
+                }
+            }, 1000);
+            }
+
+            function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+
+            if (seconds < 10) {
+                seconds = `0${seconds}`;
+            }
+
+            return `${minutes}:${seconds}`;
+            }
+
+            function pause(){
+                paused = !paused;
+                const btnPaused = document.getElementById("btnPause");
+
+                if(paused){
+                    clearInterval(timerInterval);
+                    btnPaused.innerHTML = "Resume";
+                    start(true);
+                } else{
+                    startTimer();
+                    btnPaused.innerHTML = "Pause"
+                    start(false);
+                }
+            }
+
+            function start(disable){
+                document.querySelectorAll(".tiles > div").forEach(tile => {
+                    if(disable){
+                        tile.style.display = "none";
+                    }else{
+                        tile.style.display = "block";
+                    }
+                })
+            }
+
+            function setRemainingPathColor(timeLeft) {
+            const { alert, warning, info } = COLOR_CODES;
+            if (timeLeft <= alert.threshold) {
+                document
+                .getElementById("base-timer-path-remaining")
+                .classList.remove(warning.color);
+                document
+                .getElementById("base-timer-path-remaining")
+                .classList.add(alert.color);
+            } else if (timeLeft <= warning.threshold) {
+                document
+                .getElementById("base-timer-path-remaining")
+                .classList.remove(info.color);
+                document
+                .getElementById("base-timer-path-remaining")
+                .classList.add(warning.color);
+            }
+            }
+
+            function calculateTimeFraction() {
+            const rawTimeFraction = timeLeft / TIME_LIMIT;
+            return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+            }
+
+            function setCircleDasharray() {
+            const circleDasharray = `${(
+                calculateTimeFraction() * FULL_DASH_ARRAY
+            ).toFixed(0)} 283`;
+            document
+                .getElementById("base-timer-path-remaining")
+                .setAttribute("stroke-dasharray", circleDasharray);
+            }
+
+        </script>
+
+        
+        <footer class="rights">
+            <p>&copy; 2024 All rights reserved, 1+1</p>
+        </footer>
+
+    </div>
+
+    <div class="fullScreen" id="fullScreen">
+        <div class="fullScreenQuestions">
+            <h2 id="questionNum"></h2>
+            <p id="questionText"></p>
+
+            <div id="answerContainer">
+                <input type="text" id="answer" placeholder="Type answer here..." required>
+                <button id="btnSquare" style="display: none;" class="btnSquare" title="Insert a square root">√</button>
+                <button id="btnSquare2" style="display: none;" class="btnSquare2" title="Insert a square root">√</button>
+                <button id="btnPower" style="display: none;" class="btnPower" title="Insert a square">²</button>
+                <button id="btnPi" style="display: none;" class="btnPi" title="Insert a Pi">π</button>
+                <button id="btnRoot" style="display: none;" class="btnRoot" title="Insert a square root">√</button>
+            </div>
+            <button class="submitAnswer" id="submitAnswer">Submit question answer</button>
+            <button class="x" id="x">Close question</button>
+
+            <div id="fraction" style="display: none;">
+                <input type="number" id="top" placeholder="1" required>
+                <span id="line">━</span>
+                <input type="number" id="bottom" placeholder="2" required>
+            </div>
+
+            <div id="fraction2" style="display: none;">
+                <input type="number" id="top2" placeholder="1" required>
+                <span id="line2">━</span>
+                <input type="number" id="bottom2" placeholder="2" required>
+                <input type="text" id="answer2" placeholder="" required >
+            </div>
+
+            <div id="memory" style="display: none;">
+                <div class="card"> </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="module" src="question.js"></script> 
+
+</body>
+</html>
